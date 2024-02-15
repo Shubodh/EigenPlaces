@@ -67,8 +67,9 @@ if __name__=="__main__":
         model = eigenplaces_network.GeoLocalizationNet_(args.backbone, args.fc_output_dim)
         
         if args["resume_model"] is not None:
-            logging.info(f"Loading model_ from {args["resume_model"]}")
-            model_state_dict = torch.load(args["resume_model"])
+            res_model = args["resume_model"]
+            logging.info(f"Loading model_ from {res_model}")
+            model_state_dict = torch.load(res_model)
             model.load_state_dict(model_state_dict)
         else:
             logging.info("WARNING: You didn't provide a path to resume the model_ (--resume_model parameter). " +
