@@ -42,7 +42,7 @@ if __name__=="__main__":
     # python3 eval.py --backbone ResNet50 --fc_output_dim 2048 --resume_model torchhub
     args = {
     "resume_model": "torchhub",
-    "backbone": "resnet50",
+    "backbone": "ResNet50",
     "fc_output_dim": 2048, 
     "device": "cuda" if torch.cuda.is_available() else "cpu",
     "seed": 0,
