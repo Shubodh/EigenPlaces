@@ -44,7 +44,8 @@ if __name__=="__main__":
     "resume_model": "torchhub",
     "backbone": "resnet50",
     "fc_output_dim": 2048, 
-    "device": "cuda" if torch.cuda.is_available() else "cpu"
+    "device": "cuda" if torch.cuda.is_available() else "cpu",
+    "seed": 0,
     }
 
     torch.backends.cudnn.benchmark = True  # Provides a speedup
@@ -64,7 +65,7 @@ if __name__=="__main__":
         model = torch.hub.load("gmberton/eigenplaces", "get_trained_model",
                             backbone=args["backbone"], fc_output_dim=args["fc_output_dim"])
     else:
-        model = eigenplaces_network.GeoLocalizationNet_(args.backbone, args.fc_output_dim)
+        model = eigenplaces_network.GeoLocalizationNet_(args["backbone"], args["fc_output_dim"])
         
         if args["resume_model"] is not None:
             res_model = args["resume_model"]
