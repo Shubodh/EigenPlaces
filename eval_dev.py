@@ -13,6 +13,18 @@ import commons
 from datasets.test_dataset import TestDataset
 from eigenplaces_model import eigenplaces_network
 
+class DenseFeatureExtractor(torch.nn.Module):
+    def __init__(self, original_model):
+        super(DenseFeatureExtractor, self).__init__()
+        self.backbone = original_model.backbone
+        # self.aggregation = original_model.aggregation # if needed
+    
+    def forward(self, x):
+        x = self.backbone(x)
+        # x = self.aggregation(x) # if needed
+        return x
+
+
 def process_image_through_model(model, image, device):
     # Normalize the image (these values are typical for ImageNet models)
     transform = transforms.Compose([
@@ -20,17 +32,15 @@ def process_image_through_model(model, image, device):
     ])
     image = transform(image).unsqueeze(0)  # Add batch dimension
 
-    # Move image to the same device as model
     image = image.to(device)
 
-    # Forward pass
     with torch.no_grad():
         output = model(image)
 
-    # Print the shape of the output
     print(f"Output shape: {output.shape}")
 
 if __name__=="__main__":
+    # python3 eval.py --backbone ResNet50 --fc_output_dim 2048 --resume_model torchhub
 
     torch.backends.cudnn.benchmark = True  # Provides a speedup
 
@@ -61,8 +71,11 @@ if __name__=="__main__":
 
     model = model.to(args.device)
     image = torch.rand((3, 224, 224))
-    process_image_through_model(model, image, args.device)
+    # process_image_through_model(model, image, args.device)
 
+    dense_feature_extractor = DenseFeatureExtractor(model)
+    dense_features = process_image_through_model(dense_feature_extractor, image, args["device"])
+    # print(f"Dense features shape: {dense_features.shape}")
 
 
     # test_ds = TestDataset(args.test_dataset_folder, queries_folder="queries",
