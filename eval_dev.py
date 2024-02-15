@@ -49,12 +49,12 @@ if __name__=="__main__":
 
     torch.backends.cudnn.benchmark = True  # Provides a speedup
 
-    args = parser.parse_arguments()
+    # args = parser.parse_arguments()
     start_time = datetime.now()
     # output_folder = f"logs/{args.save_dir}/{start_time.strftime('%Y-%m-%d_%H-%M-%S')}"
     commons.make_deterministic(args.seed)
     # commons.setup_logging(output_folder, console="info")
-    logging.info(" ".join(sys.argv))
+    # logging.info(" ".join(sys.argv))
     logging.info(f"Arguments: {args}")
     # logging.info(f"The outputs are being saved in {output_folder}")
     logging.info(f"There are {torch.cuda.device_count()} GPUs and {multiprocessing.cpu_count()} CPUs.")
