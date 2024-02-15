@@ -53,7 +53,7 @@ if __name__=="__main__":
     # args = parser.parse_arguments()
     start_time = datetime.now()
     # output_folder = f"logs/{args.save_dir}/{start_time.strftime('%Y-%m-%d_%H-%M-%S')}"
-    commons.make_deterministic(args.seed)
+    commons.make_deterministic(args["seed"])
     # commons.setup_logging(output_folder, console="info")
     # logging.info(" ".join(sys.argv))
     logging.info(f"Arguments: {args}")
