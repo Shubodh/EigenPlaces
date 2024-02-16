@@ -13,9 +13,9 @@ import commons
 from datasets.test_dataset import TestDataset
 from eigenplaces_model import eigenplaces_network
 
-class DenseFeatureExtractor(torch.nn.Module):
+class EigenPlacesDenseFeatureExtractor(torch.nn.Module):
     def __init__(self, original_model):
-        super(DenseFeatureExtractor, self).__init__()
+        super(EigenPlacesDenseFeatureExtractor, self).__init__()
         self.backbone = original_model.backbone
         # self.aggregation = original_model.aggregation # if needed
     
@@ -80,7 +80,7 @@ if __name__=="__main__":
     image = torch.rand((3, 224, 224))
     # process_image_through_model(model, image, args["device"])
 
-    dense_feature_extractor = DenseFeatureExtractor(model)
+    dense_feature_extractor = EigenPlacesDenseFeatureExtractor(model)
     dense_features = process_image_through_model(dense_feature_extractor, image, args["device"])
     # print(f"Dense features shape: {dense_features.shape}")
 
